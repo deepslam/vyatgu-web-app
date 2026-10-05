@@ -7,7 +7,7 @@ require __DIR__ . '/../init.php';
 header('Content-Type: application/json; charset=utf-8');
 
 $checks = [
-    'php' => 'ok',
+    'php'      => 'ok',
     'database' => 'ok',
 ];
 $httpStatus = 200;
@@ -16,7 +16,7 @@ try {
     Database::select('SELECT 1');
 } catch (Throwable $e) {
     $checks['database'] = 'fail';
-    $httpStatus = 503;
+    $httpStatus         = 503;
 }
 
 http_response_code($httpStatus);
@@ -24,4 +24,4 @@ http_response_code($httpStatus);
 echo json_encode([
     'status' => $httpStatus === 200 ? 'ok' : 'fail',
     'checks' => $checks,
-], JSON_UNESCAPED_UNICODE);
+], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);

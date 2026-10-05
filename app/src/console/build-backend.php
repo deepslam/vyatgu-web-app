@@ -7,6 +7,11 @@ use Illuminate\Database\Migrations\DatabaseMigrationRepository;
 
 Database::init();
 
+$migrationDirection = $_SERVER['argv'][1] ?? 'up';
+if ($migrationDirection !== 'up' && $migrationDirection !== 'down') {
+    die("Invalid migration direction. Allowed: up, down\n");
+}
+
 $databaseManager     = Database::getInstance()->getDatabaseManager();
 $migrationRepository = new DatabaseMigrationRepository($databaseManager, 'migrations');
 
@@ -32,7 +37,11 @@ foreach ($migrationFiles as $file) {
         echo "Запуск миграции: $migrationName... ";
 
         $migrationInstance = require $file;
-        $migrationInstance->up();
+        if ($migrationDirection === 'up') {
+            $migrationInstance->up();
+        } else {
+            $migrationInstance->down();
+        }
 
         // Записываем лог через встроенный метод репозитория
         $migrationRepository->log($migrationName, $nextBatch);
