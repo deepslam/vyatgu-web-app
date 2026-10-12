@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Добавление студента</title>
+
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Добавление студента</h1>
+      <p>
+        Учебная страница: заполните форму, а JavaScript проверит поля и
+        посчитает попытки.
+      </p>
+    </header>
+
+    <nav>
+      <a href="#form">Форма</a>
+      <a href="#stats">Статистика</a>
+      <a href="https://example.com" target="_blank" rel="noopener"
+        >Внешняя ссылка</a
+      >
+    </nav>
+
+    <main>
+      <section id="form">
+        <h2>Анкета студента</h2>
+
+        <form id="student-form" novalidate>
+          <div class="field">
+            <label for="first-name">Имя</label>
+            <input
+              id="first-name"
+              name="firstName"
+              type="text"
+              placeholder="Иван"
+            />
+            <p class="error" id="first-name-error"></p>
+          </div>
+
+          <div class="field">
+            <label for="last-name">Фамилия</label>
+            <input
+              id="last-name"
+              name="lastName"
+              type="text"
+              placeholder="Иванов"
+            />
+            <p class="error" id="last-name-error"></p>
+          </div>
+
+          <div class="field">
+            <label for="email">Email</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="ivan@example.com"
+            />
+            <p class="error" id="email-error"></p>
+          </div>
+
+          <div class="field">
+            <label for="password">Пароль</label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              placeholder="Минимум 8 символов"
+            />
+            <p class="error" id="password-error"></p>
+          </div>
+
+          <button type="submit">Добавить</button>
+        </form>
+      </section>
+
+      <section id="stats">
+        <h2>Статистика попыток</h2>
+        <p>Успешных попыток: <span id="success-count">0</span></p>
+        <p>Неуспешных попыток: <span id="fail-count">0</span></p>
+      </section>
+    </main>
+
+    <footer>
+      <p>© 2026 Учебный проект</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+  </body>
+</html>

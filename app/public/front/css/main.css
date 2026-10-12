@@ -1,0 +1,104 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 24px;
+  line-height: 1.5;
+  color: #222;
+}
+
+h1 {
+  margin-bottom: 8px;
+}
+
+nav {
+  margin: 16px 0 24px;
+}
+
+nav a {
+  margin-right: 16px;
+  color: #1a5fb4;
+  text-decoration: none;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+.field {
+  margin-bottom: 12px;
+}
+
+.field label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: bold;
+}
+
+.field input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+}
+
+.field input.invalid {
+  border-color: #c01c28;
+  background-color: #ffecec;
+}
+
+.error {
+  min-height: 18px;
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: #c01c28;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #1a5fb4;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #154a8c;
+}
+
+#stats p {
+  font-size: 18px;
+}
+
+#success-count,
+#fail-count {
+  display: inline-block;
+  font-weight: bold;
+}
+
+#success-count {
+  color: #1a7f37;
+}
+
+#fail-count {
+  color: #c01c28;
+}
+
+.pop {
+  animation: pop 0.3s ease;
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.6);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
