@@ -4,10 +4,10 @@ namespace App\Library\Api\Parameters;
 
 abstract class NumericParameterAbstract extends ParameterAbstract {
     /** @var float|int */
-    private mixed $minValue;
+    private mixed $minValue = null;
 
     /** @var float|int */
-    private mixed $maxValue;
+    private mixed $maxValue = null;
 
     private bool $isMinStrict = false;
 

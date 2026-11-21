@@ -2,6 +2,7 @@
 
 namespace App\Library\Database;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -9,8 +10,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string         $title
  * @property int            $owner_user_id
  * @property bool           $is_public
- * @property string         $created_datetime
- * @property string|null    $updated_datetime
+ * @property Carbon         $created_datetime
+ * @property Carbon|null    $updated_datetime
  */
 class Board extends Model {
     /**

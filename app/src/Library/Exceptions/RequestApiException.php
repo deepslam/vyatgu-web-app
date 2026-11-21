@@ -3,4 +3,5 @@
 namespace App\Library\Exceptions;
 
 class RequestApiException extends ApiException {
+    public bool $exposeMessage = true;
 }
