@@ -36,19 +36,29 @@ abstract class ParameterAbstract {
     }
 
     public function validate(string $parameterName, array $unverifiedData, array &$validatedData, array &$errors): void {
-        if (!array_key_exists($parameterName, $unverifiedData) && $this->isRequired && empty($this->defaultValue)) {
+        $isValueSet = array_key_exists($parameterName, $unverifiedData);
+        if (!$isValueSet && $this->isRequired && empty($this->defaultValue)) {
             $errors[$parameterName][] = ApiParameterErrors::REQUIRED;
             return;
         }
 
         $unverifiedParameterValue = $unverifiedData[$parameterName] ?? null;
         $defaultValue             = $this->defaultValue['default'] ?? null;
+
         if ($unverifiedParameterValue === null && $defaultValue !== null) {
             $unverifiedParameterValue = $this->defaultValue;
+            $isValueSet               = true;
         }
 
         if ($unverifiedParameterValue === null && !$this->isNullable) {
             $errors[$parameterName][] = ApiParameterErrors::NOT_NULLABLE;
+            return;
+        }
+
+        if ($unverifiedParameterValue === null) {
+            if ($isValueSet) {
+                $validatedData[$parameterName] = null;
+            }
             return;
         }
 

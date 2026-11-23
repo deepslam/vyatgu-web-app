@@ -2,8 +2,6 @@
 
 namespace App\Library\Exceptions;
 
-use App\Library\Exceptions\ApiException;
-
 class UnauthorizedApiException extends ApiException {
-
+    public bool $exposeMessage = true;
 }

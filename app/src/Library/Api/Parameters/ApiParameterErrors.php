@@ -5,7 +5,6 @@ namespace App\Library\Api\Parameters;
 class ApiParameterErrors {
     public const string REQUIRED                 = 'required';
     public const string NOT_NULLABLE             = 'not_nullable';
-    public const string INVALID_VALUE            = 'invalid_value';
     public const string INVALID_STRING           = 'invalid_string';
     public const string INVALID_FLOAT            = 'invalid_float';
     public const string INVALID_INTEGER          = 'invalid_integer';
@@ -14,6 +13,7 @@ class ApiParameterErrors {
     public const string INVALID_DATETIME_FORMAT  = 'invalid_datetime_format';
     public const string CANNOT_BE_PAST           = 'cannot_be_past';
     public const string INVALID_EMAIL            = 'invalid_email';
+    public const string INVALID_COLOR            = 'invalid_color';
 
     public const string MIN_VALUE  = 'min_value';
     public const string MAX_VALUE  = 'max_value';

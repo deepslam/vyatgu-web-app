@@ -5,4 +5,5 @@ namespace App\Library\Exceptions;
 use Exception;
 
 class ApiException extends Exception {
+    public bool $exposeMessage = false;
 }

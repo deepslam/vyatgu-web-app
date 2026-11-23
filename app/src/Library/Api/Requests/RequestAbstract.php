@@ -6,6 +6,7 @@ use App\Library\Api\Parameters\ParameterAbstract;
 use App\Library\Auth\UserAuth;
 use App\Library\Database\User;
 use App\Library\Exceptions\ParametersValidationApiException;
+use App\Library\Exceptions\UnauthorizedApiException;
 use App\Library\Framework\Routing\HttpMethodsEnum;
 use App\Library\Framework\Routing\HttpRequest;
 
@@ -48,6 +49,12 @@ abstract class RequestAbstract {
     protected function validateRequestData(): void {
         foreach ($this->getParameters() as $name => $parameterValidator) {
             $parameterValidator->validate($name, $this->httpRequest->getUnverifiedData(), $this->validatedData, $this->errors);
+        }
+    }
+
+    protected function requireAuthUser(): void {
+        if (!$this->user) {
+            throw new UnauthorizedApiException('Unauthorized user');
         }
     }
 }

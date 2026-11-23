@@ -5,8 +5,8 @@ namespace App\Library\Framework\Routing;
 use App\Library\Api\View\JsonView;
 use App\Library\Exceptions\ApiException;
 use App\Library\Exceptions\ControllerApiException;
+use App\Library\Exceptions\NotFoundApiException;
 use App\Library\Exceptions\ParametersValidationApiException;
-use App\Library\Exceptions\RequestApiException;
 use App\Library\Exceptions\RoutingApiException;
 use App\Library\Framework\Routing\Generated\FeatureControllerMap;
 use App\Library\Framework\Utils;
@@ -30,7 +30,7 @@ class ControllerAbstract {
                 throw new ControllerApiException("Controller method '{$currentControllerClassName}::{$actionName}()' did not return a ViewAbstract object");
             }
         } catch (Throwable $t) {
-            Super::log()->warning(trim(Utils::getClassSimpleName($t::class) . ' ' . $t->getMessage()));
+            Super::log()->warning(trim(Utils::getClassSimpleName($t::class) . ' ' . $t->getMessage()), $t->getTrace());
             $actionResult = static::getExceptionActionResult($request, $t);
         } finally {
             $actionResult->sendHeadersAndRender();
@@ -43,15 +43,17 @@ class ControllerAbstract {
 
         if ($t instanceof ApiException) {
             $errors = [
-                'error' => $t instanceof RequestApiException ? $t->getMessage() : 'Unprocessable API request'
+                'error' => !empty($t->exposeMessage) ? $t->getMessage() : 'Unprocessable API request'
             ];
 
             if ($t instanceof ParametersValidationApiException) {
                 $errors['parameter_errors'] = $t->getErrors();
             }
 
+            $httpCode = $t instanceof NotFoundApiException ? 404: 400;
+
             $exceptionResult = new JsonView($errors);
-            $exceptionResult->setResponseCode(400);
+            $exceptionResult->setResponseCode($httpCode);
         }
 
         return $exceptionResult;
