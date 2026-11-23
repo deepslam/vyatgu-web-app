@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router'
+import { BoardPage } from '../pages/board'
 import { LoginPage } from '../pages/login'
 import { MainPage } from '../pages/main'
 import { NotFoundPage } from '../pages/not-found'
@@ -15,6 +16,7 @@ export function App() {
         <Routes>
           <Route element={<RequireAuth />}>
             <Route index element={<MainPage />} />
+            <Route path="boards/:boardId" element={<BoardPage />} />
           </Route>
 
           <Route path="login" element={<LoginPage />} />

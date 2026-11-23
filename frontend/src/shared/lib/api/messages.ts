@@ -7,7 +7,6 @@ import type { ApiError } from './ApiError'
 const parameterMessages: Record<string, string> = {
   required: 'Обязательное поле',
   not_nullable: 'Значение не может быть пустым',
-  invalid_value: 'Некорректное значение',
   invalid_string: 'Некорректное значение',
   invalid_float: 'Некорректное число',
   invalid_integer: 'Некорректное целое число',
@@ -16,6 +15,7 @@ const parameterMessages: Record<string, string> = {
   invalid_datetime_format: 'Некорректный формат даты и времени',
   cannot_be_past: 'Дата не может быть в прошлом',
   invalid_email: 'Некорректный email',
+  invalid_color: 'Некорректный цвет',
   min_value: 'Значение слишком маленькое',
   max_value: 'Значение слишком большое',
   min_length: 'Слишком короткое значение',
@@ -51,8 +51,16 @@ const requestMessages: Record<string, string> = {
   'Authorized user': 'Вы уже авторизованы',
   'Can`t authorize new user': 'Не удалось войти под новым пользователем',
   'User not found': 'Пользователь не найден',
+  'Unauthorized user': 'Сессия истекла. Войдите заново',
+  'Board not found': 'Доска не найдена',
+  'Board column not found': 'Колонка не найдена',
 }
 
 export function formatRequestError(error: ApiError): string {
+  // Сообщение бэкенда содержит номер позиции, поэтому сверяем по началу строки.
+  if (error.message.startsWith('Column with ordinal position')) {
+    return 'Колонка с такой позицией уже существует'
+  }
+
   return requestMessages[error.message] ?? 'Не удалось выполнить запрос. Попробуйте ещё раз'
 }

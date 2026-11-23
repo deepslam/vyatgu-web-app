@@ -8,6 +8,10 @@ type InputProps = {
   type?: 'text' | 'email' | 'password'
   placeholder?: string
   autoComplete?: string
+  /** Максимальная длина значения — дублирует ограничение бэкенда. */
+  maxLength?: number
+  /** Сфокусировать поле при открытии, например в модальном окне. */
+  autoFocus?: boolean
   /** Текст ошибки под полем — сюда попадают parameter_errors с бэкенда. */
   error?: string
 }
@@ -26,6 +30,8 @@ export function Input({
   type = 'text',
   placeholder,
   autoComplete,
+  maxLength,
+  autoFocus,
   error,
 }: InputProps) {
   const id = useId()
@@ -44,6 +50,8 @@ export function Input({
         value={value}
         placeholder={placeholder}
         autoComplete={autoComplete}
+        maxLength={maxLength}
+        autoFocus={autoFocus}
         aria-invalid={Boolean(error)}
         aria-describedby={error ? errorId : undefined}
         onChange={(event) => onChange(name, event.target.value)}
