@@ -41,6 +41,9 @@ abstract class ParameterAbstract {
             $errors[$parameterName][] = ApiParameterErrors::REQUIRED;
             return;
         }
+        if (!$isValueSet && !$this->isRequired && empty($this->defaultValue)) {
+            return;
+        }
 
         $unverifiedParameterValue = $unverifiedData[$parameterName] ?? null;
         $defaultValue             = $this->defaultValue['default'] ?? null;

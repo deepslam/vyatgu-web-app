@@ -96,7 +96,7 @@ final class FrontendController extends ControllerAbstract {
     /* BoardColumn */
 
     public function boardColumnsAction(HttpRequest $request): ViewAbstract {
-        $boardColumnsRequest = new BoardColumnsRequest($request, HttpMethodsEnum::POST);
+        $boardColumnsRequest = new BoardColumnsRequest($request, HttpMethodsEnum::GET);
         $boardColumnsRequest->validate();
         $boardColumnsRequest->execute();
 

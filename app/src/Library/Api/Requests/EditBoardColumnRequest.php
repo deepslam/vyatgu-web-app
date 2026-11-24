@@ -27,6 +27,10 @@ final class EditBoardColumnRequest extends BoardColumnRequestAbstract {
             Super::log()->warning($e->getMessage());
             throw new NotFoundApiException('Board column not found');
         }
+
+        if (isset($this->validatedData['ordinal_position'])) {
+            $this->requireFreeOrdinalPosition($this->validatedData['board_id'], $this->validatedData['ordinal_position']);
+        }
     }
 
     public function execute(): void {
