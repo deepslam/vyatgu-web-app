@@ -1,7 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace App\Library\Api\Requests;
+namespace App\Library\Api\Requests\BoardColumn;
 
+use App\Library\Api\Requests\RequestAbstract;
 use App\Library\Database\Board;
 use App\Library\Database\BoardColumn;
 use App\Library\Exceptions\NotFoundApiException;

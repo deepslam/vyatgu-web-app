@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Library\Api\Requests;
+namespace App\Library\Api\Requests\BoardColumn;
 
 use App\Library\Api\Parameters\ColorParameter;
 use App\Library\Api\Parameters\IdParameter;

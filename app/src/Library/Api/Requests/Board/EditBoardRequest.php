@@ -1,10 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace App\Library\Api\Requests;
+namespace App\Library\Api\Requests\Board;
 
 use App\Library\Api\Parameters\BooleanParameter;
 use App\Library\Api\Parameters\IdParameter;
 use App\Library\Api\Parameters\StringParameter;
+use App\Library\Api\Requests\RequestAbstract;
 use App\Library\Database\Board;
 use App\Library\Exceptions\NotFoundApiException;
 use App\Library\Super;

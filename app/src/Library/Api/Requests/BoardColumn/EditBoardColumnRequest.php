@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Library\Api\Requests;
+namespace App\Library\Api\Requests\BoardColumn;
 
 use App\Library\Api\Parameters\ColorParameter;
 use App\Library\Api\Parameters\IdParameter;
@@ -36,7 +36,9 @@ final class EditBoardColumnRequest extends BoardColumnRequestAbstract {
     public function execute(): void {
         $this->boardColumn->ordinal_position = $this->validatedData['ordinal_position'] ?? $this->boardColumn->ordinal_position;
         $this->boardColumn->title            = $this->validatedData['title'] ?? $this->boardColumn->title;
-        $this->boardColumn->color            = $this->validatedData['color'] ?? null;
+        if (array_key_exists('color', $this->validatedData)) {
+            $this->boardColumn->color = $this->validatedData['color'];
+        }
         $this->boardColumn->save();
     }
 

@@ -1,9 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace App\Library\Api\Requests;
+namespace App\Library\Api\Requests\BoardColumn;
 
 use App\Library\Api\Parameters\IdParameter;
 use App\Library\Database\BoardColumn;
+use App\Library\Database\Card;
+use App\Library\Database\Database;
 use App\Library\Exceptions\NotFoundApiException;
 use App\Library\Super;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -27,13 +29,19 @@ final class DeleteBoardColumnRequest extends BoardColumnRequestAbstract {
     }
 
     public function execute(): void {
-        $this->boardColumn->delete();
+        Database::getInstance()::transaction(function () {
+            // Все из колонки
+            Card::where('board_id', $this->boardColumn->board_id)->delete();
+
+            // Саму карточку
+            $this->boardColumn->delete();
+        });
     }
 
     protected function getParameters(): array {
         return [
-            'column_id'        => new IdParameter(),
-            'board_id'         => new IdParameter(),
+            'column_id' => new IdParameter(),
+            'board_id'  => new IdParameter(),
         ];
     }
 }

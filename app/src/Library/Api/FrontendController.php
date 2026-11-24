@@ -2,15 +2,16 @@
 
 namespace App\Library\Api;
 
-use App\Library\Api\Requests\AuthRequest;
-use App\Library\Api\Requests\BoardColumnsRequest;
-use App\Library\Api\Requests\CreateBoardColumnRequest;
-use App\Library\Api\Requests\CreateBoardRequest;
-use App\Library\Api\Requests\DeleteBoardColumnRequest;
-use App\Library\Api\Requests\DeleteBoardRequest;
-use App\Library\Api\Requests\EditBoardColumnRequest;
-use App\Library\Api\Requests\EditBoardRequest;
-use App\Library\Api\Requests\RegistrationRequest;
+use App\Library\Api\Requests\Board\CreateBoardRequest;
+use App\Library\Api\Requests\Board\DeleteBoardRequest;
+use App\Library\Api\Requests\Board\EditBoardRequest;
+use App\Library\Api\Requests\BoardColumn\BoardColumnsRequest;
+use App\Library\Api\Requests\BoardColumn\CreateBoardColumnRequest;
+use App\Library\Api\Requests\BoardColumn\DeleteBoardColumnRequest;
+use App\Library\Api\Requests\BoardColumn\EditBoardColumnRequest;
+use App\Library\Api\Requests\BoardColumn\MoveBoardColumnRequest;
+use App\Library\Api\Requests\User\AuthRequest;
+use App\Library\Api\Requests\User\RegistrationRequest;
 use App\Library\Api\Responses\BoardColumnResponseModel;
 use App\Library\Api\Responses\BoardResponseModel;
 use App\Library\Api\Responses\UserResponseModel;
@@ -85,7 +86,7 @@ final class FrontendController extends ControllerAbstract {
         return new JsonView(BoardResponseModel::getInfo($editBoardRequest->getBoard()));
     }
 
-    public function deleteBoardAction(HttpRequest $request): ViewAbstract {
+    public function deleteBoardAction(HttpRequest $request): ViewAbstract { // удалять колонки!
         $deleteBoardRequest = new DeleteBoardRequest($request, HttpMethodsEnum::POST);
         $deleteBoardRequest->validate();
         $deleteBoardRequest->execute();
@@ -126,4 +127,24 @@ final class FrontendController extends ControllerAbstract {
 
         return new JsonView([]);
     }
+
+    public function moveBoardColumnLeftAction(HttpRequest $request):ViewAbstract {
+        $moveBoardColumnRequest = new MoveBoardColumnRequest($request, HttpMethodsEnum::POST, MoveBoardColumnRequest::LEFT);
+        $moveBoardColumnRequest->validate();
+        $moveBoardColumnRequest->execute();
+
+        return new JsonView([]);
+    }
+
+    public function moveBoardColumnRightAction(HttpRequest $request):ViewAbstract {
+        $moveBoardColumnRequest = new MoveBoardColumnRequest($request, HttpMethodsEnum::POST, MoveBoardColumnRequest::RIGHT);
+        $moveBoardColumnRequest->validate();
+        $moveBoardColumnRequest->execute();
+
+        return new JsonView([]);
+    }
+
+    // карточный CRUD
+    // новый порядок карточек в колонке
+    // перенос карточек по колонкам
 }

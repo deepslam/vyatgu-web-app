@@ -37,31 +37,31 @@ abstract class ParameterAbstract {
 
     public function validate(string $parameterName, array $unverifiedData, array &$validatedData, array &$errors): void {
         $isValueSet = array_key_exists($parameterName, $unverifiedData);
-        if (!$isValueSet && $this->isRequired && empty($this->defaultValue)) {
-            $errors[$parameterName][] = ApiParameterErrors::REQUIRED;
-            return;
-        }
-        if (!$isValueSet && !$this->isRequired && empty($this->defaultValue)) {
+
+        // Если значение не передано и нет значения по умолчанию,
+        // то ошибка, только если параметр обязательный.
+        if (!$isValueSet && !$this->defaultValue) {
+            if ($this->isRequired) {
+                $errors[$parameterName][] = ApiParameterErrors::REQUIRED;
+            }
             return;
         }
 
+        // Значение по умолчанию подставляем только если параметр не передан
         $unverifiedParameterValue = $unverifiedData[$parameterName] ?? null;
-        $defaultValue             = $this->defaultValue['default'] ?? null;
-
-        if ($unverifiedParameterValue === null && $defaultValue !== null) {
+        if (!$isValueSet && $this->defaultValue) {
             $unverifiedParameterValue = $this->defaultValue;
-            $isValueSet               = true;
         }
 
+        // Некоторые параметры не принимают null
         if ($unverifiedParameterValue === null && !$this->isNullable) {
             $errors[$parameterName][] = ApiParameterErrors::NOT_NULLABLE;
             return;
         }
 
+        // Мы разрешили честный null, нет смысла валидировать дальше
         if ($unverifiedParameterValue === null) {
-            if ($isValueSet) {
-                $validatedData[$parameterName] = null;
-            }
+            $validatedData[$parameterName] = null;
             return;
         }
 

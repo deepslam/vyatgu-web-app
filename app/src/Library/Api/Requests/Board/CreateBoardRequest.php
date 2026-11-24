@@ -1,9 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace App\Library\Api\Requests;
+namespace App\Library\Api\Requests\Board;
 
 use App\Library\Api\Parameters\BooleanParameter;
 use App\Library\Api\Parameters\StringParameter;
+use App\Library\Api\Requests\RequestAbstract;
 use App\Library\Database\Board;
 
 final class CreateBoardRequest extends RequestAbstract {
