@@ -1,9 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace App\Library\Api\Requests;
+namespace App\Library\Api\Requests\User;
 
 use App\Library\Api\Parameters\EmailParameter;
 use App\Library\Api\Parameters\StringParameter;
+use App\Library\Api\Requests\RequestAbstract;
 use App\Library\Auth\UserAuth;
 use App\Library\Database\User;
 use App\Library\Exceptions\RequestApiException;

@@ -1,13 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace App\Library\Api\Requests;
+namespace App\Library\Api\Requests\BoardColumn;
 
 use App\Library\Api\Parameters\ColorParameter;
 use App\Library\Api\Parameters\IdParameter;
 use App\Library\Api\Parameters\IntegerParameter;
 use App\Library\Api\Parameters\StringParameter;
 use App\Library\Database\BoardColumn;
-use App\Library\Exceptions\RequestApiException;
 
 final class CreateBoardColumnRequest extends BoardColumnRequestAbstract {
     public private(set) BoardColumn $boardColumn;
@@ -15,14 +14,7 @@ final class CreateBoardColumnRequest extends BoardColumnRequestAbstract {
     public function validate(): void {
         $this->requireAuthUser();
         $this->requireBoardExistsAndOwnedByUser($this->validatedData['board_id']);
-
-        $boardColumnsCount = BoardColumn::where([
-            'board_id'         => $this->validatedData['board_id'],
-            'ordinal_position' => $this->validatedData['ordinal_position'],
-        ])->count();
-        if ($boardColumnsCount) {
-            throw new RequestApiException("Column with ordinal position {$this->validatedData['ordinal_position']} already exists");
-        }
+        $this->requireFreeOrdinalPosition($this->validatedData['board_id'], $this->validatedData['ordinal_position']);
     }
 
     public function execute(): void {
